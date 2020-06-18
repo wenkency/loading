@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity(), AppPagerListener {
         setContentView(R.layout.activity_loading)
 
         // 测试用，实际用自己开发的页面
-        // 测试用，实际用自己开发的页面
         LoadingManager.BASE_LOADING_LAYOUT_ID = (R.layout.pager_loading)
         LoadingManager.BASE_RETRY_LAYOUT_ID = (R.layout.pager_retry)
         LoadingManager.BASE_DATA_ERROR_LAYOUT_ID = (R.layout.pager_data_error)

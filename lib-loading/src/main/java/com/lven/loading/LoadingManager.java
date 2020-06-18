@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
  * 加载类
  */
 public class LoadingManager {
-    public static final int NO_LAYOUT_ID = 0;
+    public static final int NO_LAYOUT_ID = R.layout.loading_pager_empty;
     // 加载时的页面
     public static int BASE_LOADING_LAYOUT_ID = NO_LAYOUT_ID;
     // 重试的页面
@@ -75,19 +75,18 @@ public class LoadingManager {
         }
 
 
-        LoadingLayout loadingLayout = new LoadingLayout(context);
+        mLoadingLayout = new LoadingLayout(context);
 
-
-        // setup loading,retry,empty layout
-        setupLoadingLayout(listener, loadingLayout);
-        setupRetryLayout(listener, loadingLayout);
-        setupDataErrorLayout(listener, loadingLayout);
-        setupEmptyLayout(listener, loadingLayout);
+        // setup retry,data error,loading,empty layout
+        setupRetryLayout(listener, mLoadingLayout);
+        setupDataErrorLayout(listener, mLoadingLayout);
+        setupLoadingLayout(listener, mLoadingLayout);
+        setupEmptyLayout(listener, mLoadingLayout);
         // callback
-        listener.setRetryEvent(loadingLayout.getRetryView());
-        listener.setDataErrorEvent(loadingLayout.getDataErrorView());
-        listener.setLoadingEvent(loadingLayout.getLoadingView());
-        listener.setEmptyEvent(loadingLayout.getEmptyView());
+        listener.setRetryEvent(mLoadingLayout.getRetryView());
+        listener.setDataErrorEvent(mLoadingLayout.getDataErrorView());
+        listener.setLoadingEvent(mLoadingLayout.getLoadingView());
+        listener.setEmptyEvent(mLoadingLayout.getEmptyView());
 
         //setup content layout
         ViewGroup.LayoutParams lp = oldContent.getLayoutParams();
@@ -95,30 +94,30 @@ public class LoadingManager {
         if (activityOrFragmentOrView instanceof FrameLayout) {
             FrameLayout frameLayout = (FrameLayout) activityOrFragmentOrView;
             oldContent = frameLayout.getChildAt(0);
-            loadingLayout.onlySetContentView(oldContent);
-            frameLayout.addView(loadingLayout);
+            mLoadingLayout.onlySetContentView(oldContent);
+            frameLayout.addView(mLoadingLayout);
         } else {
             // 1. 移除旧的
             contentParent.removeView(oldContent);
             // 旧的添加到自定义布局
-            loadingLayout.setContentView(oldContent);
+            mLoadingLayout.setContentView(oldContent);
             // 2. 添加新的到原来位置
-            contentParent.addView(loadingLayout, index, lp);
+            contentParent.addView(mLoadingLayout, index, lp);
         }
 
-        mLoadingLayout = loadingLayout;
+
         // 设置监听
         mLoadingLayout.setOnLoadingListener(listener);
 
     }
 
     private void setupEmptyLayout(OnLoadingListener listener, LoadingLayout loadingAndRetryLayout) {
-        if (listener.isSetEmptyLayout()) {
+        if (listener.isSetEmptyLayout(this)) {
             int layoutId = listener.generateEmptyLayoutId();
             if (layoutId != NO_LAYOUT_ID) {
                 loadingAndRetryLayout.setEmptyView(layoutId);
             } else {
-                loadingAndRetryLayout.setEmptyView(listener.generateEmptyLayout());
+                loadingAndRetryLayout.setEmptyView(listener.generateEmptyLayout(this));
             }
         } else {
             if (BASE_EMPTY_LAYOUT_ID != NO_LAYOUT_ID)
@@ -127,12 +126,12 @@ public class LoadingManager {
     }
 
     private void setupLoadingLayout(OnLoadingListener listener, LoadingLayout loadingAndRetryLayout) {
-        if (listener.isSetLoadingLayout()) {
+        if (listener.isSetLoadingLayout(this)) {
             int layoutId = listener.generateLoadingLayoutId();
             if (layoutId != NO_LAYOUT_ID) {
                 loadingAndRetryLayout.setLoadingView(layoutId);
             } else {
-                loadingAndRetryLayout.setLoadingView(listener.generateLoadingLayout());
+                loadingAndRetryLayout.setLoadingView(listener.generateLoadingLayout(this));
             }
         } else {
             if (BASE_LOADING_LAYOUT_ID != NO_LAYOUT_ID)
@@ -141,12 +140,12 @@ public class LoadingManager {
     }
 
     private void setupRetryLayout(OnLoadingListener listener, LoadingLayout loadingAndRetryLayout) {
-        if (listener.isSetRetryLayout()) {
+        if (listener.isSetRetryLayout(this)) {
             int layoutId = listener.generateRetryLayoutId();
             if (layoutId != NO_LAYOUT_ID) {
-                loadingAndRetryLayout.setLoadingView(layoutId);
+                loadingAndRetryLayout.setRetryView(layoutId);
             } else {
-                loadingAndRetryLayout.setLoadingView(listener.generateRetryLayout());
+                loadingAndRetryLayout.setRetryView(listener.generateRetryLayout(this));
             }
         } else {
             if (BASE_RETRY_LAYOUT_ID != NO_LAYOUT_ID)
@@ -155,12 +154,12 @@ public class LoadingManager {
     }
 
     private void setupDataErrorLayout(OnLoadingListener listener, LoadingLayout loadingAndRetryLayout) {
-        if (listener.isSetDataErrorLayout()) {
+        if (listener.isSetDataErrorLayout(this)) {
             int layoutId = listener.generateDataErrorLayoutId();
             if (layoutId != NO_LAYOUT_ID) {
                 loadingAndRetryLayout.setDataErrorView(layoutId);
             } else {
-                loadingAndRetryLayout.setDataErrorView(listener.generateRetryLayout());
+                loadingAndRetryLayout.setDataErrorView(listener.generateRetryLayout(this));
             }
         } else {
             if (BASE_RETRY_LAYOUT_ID != NO_LAYOUT_ID)
@@ -190,6 +189,10 @@ public class LoadingManager {
 
     public void showEmpty() {
         mLoadingLayout.showEmpty();
+    }
+
+    public View inflate(int layoutId) {
+        return mLoadingLayout.inflate(layoutId);
     }
 
 
@@ -229,4 +232,6 @@ public class LoadingManager {
         }
         return false;
     }
+
+
 }

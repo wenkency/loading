@@ -18,51 +18,51 @@ public abstract class OnLoadingListener {
     }
 
     public int generateLoadingLayoutId() {
-        return LoadingManager.NO_LAYOUT_ID;
+        return LoadingManager.BASE_LOADING_LAYOUT_ID;
     }
 
     public int generateDataErrorLayoutId() {
-        return LoadingManager.NO_LAYOUT_ID;
+        return LoadingManager.BASE_DATA_ERROR_LAYOUT_ID;
     }
 
     public int generateRetryLayoutId() {
-        return LoadingManager.NO_LAYOUT_ID;
+        return LoadingManager.BASE_RETRY_LAYOUT_ID;
     }
 
     public int generateEmptyLayoutId() {
-        return LoadingManager.NO_LAYOUT_ID;
+        return LoadingManager.BASE_EMPTY_LAYOUT_ID;
     }
 
-    public View generateLoadingLayout() {
-        return null;
+    public View generateLoadingLayout(LoadingManager loadingManager) {
+        return loadingManager.inflate(LoadingManager.NO_LAYOUT_ID);
     }
 
-    public View generateRetryLayout() {
-        return null;
+    public View generateRetryLayout(LoadingManager loadingManager) {
+        return loadingManager.inflate(LoadingManager.NO_LAYOUT_ID);
     }
 
-    public View generateDataErrorLayout() {
-        return null;
+    public View generateDataErrorLayout(LoadingManager loadingManager) {
+        return loadingManager.inflate(LoadingManager.NO_LAYOUT_ID);
     }
 
-    public View generateEmptyLayout() {
-        return null;
+    public View generateEmptyLayout(LoadingManager loadingManager) {
+        return loadingManager.inflate(LoadingManager.NO_LAYOUT_ID);
     }
 
-    public boolean isSetLoadingLayout() {
-        return generateLoadingLayoutId() != LoadingManager.NO_LAYOUT_ID || generateLoadingLayout() != null;
+    public boolean isSetLoadingLayout(LoadingManager loadingManager) {
+        return generateLoadingLayoutId() != LoadingManager.NO_LAYOUT_ID || generateLoadingLayout(loadingManager) != null;
     }
 
-    public boolean isSetRetryLayout() {
-        return generateRetryLayoutId() != LoadingManager.NO_LAYOUT_ID || generateRetryLayout() != null;
+    public boolean isSetRetryLayout(LoadingManager loadingManager) {
+        return generateRetryLayoutId() != LoadingManager.NO_LAYOUT_ID || generateRetryLayout(loadingManager) != null;
     }
 
-    public boolean isSetDataErrorLayout() {
-        return generateDataErrorLayoutId() != LoadingManager.NO_LAYOUT_ID || generateDataErrorLayout() != null;
+    public boolean isSetDataErrorLayout(LoadingManager loadingManager) {
+        return generateDataErrorLayoutId() != LoadingManager.NO_LAYOUT_ID || generateDataErrorLayout(loadingManager) != null;
     }
 
-    public boolean isSetEmptyLayout() {
-        return generateEmptyLayoutId() != LoadingManager.NO_LAYOUT_ID || generateEmptyLayout() != null;
+    public boolean isSetEmptyLayout(LoadingManager loadingManager) {
+        return generateEmptyLayoutId() != LoadingManager.NO_LAYOUT_ID || generateEmptyLayout(loadingManager) != null;
     }
 
     public void onLoadingChanged(LoadState state, LoadingLayout loadingLayout) {

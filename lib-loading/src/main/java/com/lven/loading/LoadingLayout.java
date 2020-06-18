@@ -283,4 +283,8 @@ public class LoadingLayout extends FrameLayout {
     public void setOnLoadingListener(OnLoadingListener onLoadingListener) {
         this.onLoadingListener = onLoadingListener;
     }
+
+    public View inflate(int layoutId) {
+        return mInflater.inflate(layoutId, this, false);
+    }
 }
