@@ -1,0 +1,3 @@
+include ':lib-loading'
+include ':app'
+rootProject.name = "LoadingProjet"
