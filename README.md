@@ -1,17 +1,36 @@
-package com.lven.loadingprojet
+# loading retry,data error,empty, layout
+网络请求加载页面：加载中、重试、数据错误、空页面、自己的内容页面
 
-import android.annotation.SuppressLint
-import android.os.Bundle
-import android.util.Log
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import com.lven.loading.LoadState
-import com.lven.loading.LoadingLayout
-import com.lven.loading.LoadingManager
-import com.lven.loading.OnLoadingListener
-import com.lven.loading.listener.AppLoadingListener
-import com.lven.loading.listener.AppPagerListener
+### 引入
 
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+implementation 'com.github.wenkency:loading:1.0.0'
+
+```
+### Application初始化
+```
+public class BaseApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // 测试用，实际用自己开发的页面
+        LoadingManager.BASE_LOADING_LAYOUT_ID = (R.layout.pager_loading)
+        LoadingManager.BASE_RETRY_LAYOUT_ID = (R.layout.pager_retry)
+        LoadingManager.BASE_DATA_ERROR_LAYOUT_ID = (R.layout.pager_data_error)
+        LoadingManager.BASE_EMPTY_LAYOUT_ID = (R.layout.pager_empty)
+    }
+}
+```
+
+### 使用方式
+```
 class MainActivity : AppCompatActivity(), AppPagerListener {
     lateinit var loadingManager: LoadingManager
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,3 +113,4 @@ class MainActivity : AppCompatActivity(), AppPagerListener {
     }
 
 }
+```
