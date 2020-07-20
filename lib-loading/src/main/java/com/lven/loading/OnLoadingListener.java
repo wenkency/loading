@@ -65,7 +65,7 @@ public abstract class OnLoadingListener {
         return generateEmptyLayoutId() != LoadingManager.NO_LAYOUT_ID || generateEmptyLayout(loadingManager) != null;
     }
 
-    public void onLoadingChanged(LoadState state, LoadingLayout loadingLayout) {
+    public void onLoadingChanged(LoadState state, View view) {
 
     }
 

@@ -53,9 +53,9 @@ public class AppLoadingListener extends OnLoadingListener {
     }
 
     @Override
-    public void onLoadingChanged(@NonNull LoadState state, @NonNull LoadingLayout loadingLayout) {
+    public void onLoadingChanged(@NonNull LoadState state, @NonNull View view) {
         if (listener != null) {
-            listener.onLoadingChanged(state, loadingLayout);
+            listener.onLoadingChanged(state, view);
         }
     }
 }

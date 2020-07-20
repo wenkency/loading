@@ -5,7 +5,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.lven.loading.LoadState;
-import com.lven.loading.LoadingLayout;
 import com.lven.loading.OnLoadingListener;
 
 
@@ -43,5 +42,5 @@ public interface AppPagerListener {
     /**
      * 页面状态发生改变
      */
-    void onLoadingChanged(@NonNull LoadState state, @NonNull LoadingLayout loadingLayout);
+    void onLoadingChanged(@NonNull LoadState state, @NonNull View view);
 }

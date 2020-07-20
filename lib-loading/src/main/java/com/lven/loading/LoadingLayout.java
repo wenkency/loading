@@ -173,7 +173,7 @@ public class LoadingLayout extends FrameLayout {
         }
         // 状态回调监听
         if (onLoadingListener != null) {
-            onLoadingListener.onLoadingChanged(loadState, this);
+            onLoadingListener.onLoadingChanged(loadState, view);
         }
     }
 

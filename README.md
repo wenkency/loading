@@ -11,7 +11,7 @@ allprojects {
     }
 }
 
-implementation 'com.github.wenkency:loading:1.1.0'
+implementation 'com.github.wenkency:loading:1.2.0'
 
 ```
 ### Application初始化
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity(), AppPagerListener {
     /**
      * 1.页面加载状态改变的回调，如果有需求可做一些通用操作
      */
-    override fun onLoadingChanged(state: LoadState, loadingLayout: LoadingLayout) {
+    override fun onLoadingChanged(state: LoadState, view: View) {
         Log.e("TAG", state.name)
     }
 
