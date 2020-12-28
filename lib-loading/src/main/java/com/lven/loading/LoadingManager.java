@@ -90,21 +90,12 @@ public class LoadingManager {
 
         //setup content layout
         ViewGroup.LayoutParams lp = oldContent.getLayoutParams();
-        // 1. 如果是FrameLayout，直接添加进去
-        if (activityOrFragmentOrView instanceof FrameLayout) {
-            FrameLayout frameLayout = (FrameLayout) activityOrFragmentOrView;
-            oldContent = frameLayout.getChildAt(0);
-            mLoadingLayout.onlySetContentView(oldContent);
-            frameLayout.addView(mLoadingLayout);
-        } else {
-            // 1. 移除旧的
-            contentParent.removeView(oldContent);
-            // 旧的添加到自定义布局
-            mLoadingLayout.setContentView(oldContent);
-            // 2. 添加新的到原来位置
-            contentParent.addView(mLoadingLayout, index, lp);
-        }
-
+        // 1. 移除旧的
+        contentParent.removeView(oldContent);
+        // 旧的添加到自定义布局
+        mLoadingLayout.setContentView(oldContent);
+        // 2. 添加新的到原来位置
+        contentParent.addView(mLoadingLayout, index, lp);
 
         // 设置监听
         mLoadingLayout.setOnLoadingListener(listener);
