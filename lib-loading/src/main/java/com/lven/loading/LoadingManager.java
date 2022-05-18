@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import androidx.fragment.app.Fragment;
 
@@ -77,18 +76,8 @@ public class LoadingManager {
 
         mLoadingLayout = new LoadingLayout(context);
 
-        // setup retry,data error,loading,empty layout
-        setupRetryLayout(listener, mLoadingLayout);
-        setupDataErrorLayout(listener, mLoadingLayout);
-        setupLoadingLayout(listener, mLoadingLayout);
-        setupEmptyLayout(listener, mLoadingLayout);
-        // callback
-        listener.setRetryEvent(mLoadingLayout.getRetryView());
-        listener.setDataErrorEvent(mLoadingLayout.getDataErrorView());
-        listener.setLoadingEvent(mLoadingLayout.getLoadingView());
-        listener.setEmptyEvent(mLoadingLayout.getEmptyView());
 
-        //setup content layout
+        // 添加 Content布局
         ViewGroup.LayoutParams lp = oldContent.getLayoutParams();
         // 1. 移除旧的
         contentParent.removeView(oldContent);
@@ -96,6 +85,18 @@ public class LoadingManager {
         mLoadingLayout.setContentView(oldContent);
         // 2. 添加新的到原来位置
         contentParent.addView(mLoadingLayout, index, lp);
+
+
+        // setup retry,data error,empty,loading layout
+        setupRetryLayout(listener, mLoadingLayout);
+        setupDataErrorLayout(listener, mLoadingLayout);
+        setupEmptyLayout(listener, mLoadingLayout);
+        setupLoadingLayout(listener, mLoadingLayout);
+        // callback
+        listener.setRetryEvent(mLoadingLayout.getRetryView());
+        listener.setDataErrorEvent(mLoadingLayout.getDataErrorView());
+        listener.setEmptyEvent(mLoadingLayout.getEmptyView());
+        listener.setLoadingEvent(mLoadingLayout.getLoadingView());
 
         // 设置监听
         mLoadingLayout.setOnLoadingListener(listener);
@@ -163,7 +164,7 @@ public class LoadingManager {
     }
 
     public void showLoading() {
-        mLoadingLayout.showLoading();
+        mLoadingLayout.showLoading(true);
     }
 
     public void showRetry() {

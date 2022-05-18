@@ -11,7 +11,7 @@ allprojects {
     }
 }
 
-implementation 'com.github.wenkency:loading:1.3.0'
+implementation 'com.github.wenkency:loading:1.4.0'
 
 ```
 ### Application初始化

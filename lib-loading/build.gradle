@@ -1,14 +1,31 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+    // 远程仓库
+    id 'maven-publish'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.wenkency'
+                artifactId = 'android-loading'
+                version = '1.4.0'
+            }
+        }
+    }
+}
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 32
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 32
+        versionCode 140
+        versionName "1.4.0"
     }
 
     buildTypes {
@@ -21,6 +38,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    compileOnly 'androidx.appcompat:appcompat:1.1.0'
+    compileOnly 'androidx.appcompat:appcompat:1.4.1'
 
 }

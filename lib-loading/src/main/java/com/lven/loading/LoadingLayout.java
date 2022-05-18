@@ -43,16 +43,19 @@ public class LoadingLayout extends FrameLayout {
         this(context, null);
     }
 
-
     public void showLoading() {
+        showLoading(false);
+    }
+
+    public void showLoading(boolean isShowContent) {
         if (isMainThread()) {
-            showView(LoadState.LOADING, mLoadingView);
+            showView(LoadState.LOADING, mLoadingView, isShowContent);
             return;
         }
         post(new Runnable() {
             @Override
             public void run() {
-                showView(LoadState.LOADING, mLoadingView);
+                showView(LoadState.LOADING, mLoadingView, isShowContent);
             }
         });
     }
@@ -114,6 +117,10 @@ public class LoadingLayout extends FrameLayout {
     }
 
     private void showView(LoadState loadState, View view) {
+        showView(loadState, view, false);
+    }
+
+    private void showView(LoadState loadState, View view, boolean isShowContent) {
         if (view == null) {
             return;
         }
@@ -127,8 +134,13 @@ public class LoadingLayout extends FrameLayout {
                 mRetryView.setVisibility(View.GONE);
             if (mDataErrorView != null)
                 mDataErrorView.setVisibility(View.GONE);
-            if (mContentView != null)
-                mContentView.setVisibility(View.GONE);
+            if (mContentView != null) {
+                if (isShowContent) {
+                    mContentView.setVisibility(View.VISIBLE);
+                } else {
+                    mContentView.setVisibility(View.GONE);
+                }
+            }
             if (mEmptyView != null)
                 mEmptyView.setVisibility(View.GONE);
         } else if (view == mRetryView) {
