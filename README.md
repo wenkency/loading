@@ -11,7 +11,7 @@ allprojects {
     }
 }
 
-implementation 'com.github.wenkency:loading:1.4.0'
+implementation 'com.github.wenkency:loading:1.5.0'
 
 ```
 ### Application初始化
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), AppPagerListener {
     }
 
     fun loading(view: View) {
-        loadingManager.showLoading()
+        loadingManager.showLoading(true)
     }
 
     fun retry(view: View) {

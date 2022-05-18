@@ -164,7 +164,11 @@ public class LoadingManager {
     }
 
     public void showLoading() {
-        mLoadingLayout.showLoading(true);
+        showLoading(false);
+    }
+
+    public void showLoading(boolean isShowContent) {
+        mLoadingLayout.showLoading(isShowContent);
     }
 
     public void showRetry() {

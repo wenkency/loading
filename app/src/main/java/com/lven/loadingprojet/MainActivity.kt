@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), AppPagerListener {
     }
 
     fun loading(view: View) {
-        loadingManager.showLoading()
+        loadingManager.showLoading(true)
     }
 
     fun retry(view: View) {
